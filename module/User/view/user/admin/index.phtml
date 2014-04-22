@@ -1,0 +1,65 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 17
+ * 
+ * Das Buch "Zend Framework 2 - Das Praxisbuch"
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
+ * 
+ * @package    User
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
+ */
+
+/**
+ * namespace definition and usage
+ */
+use User\Entity\UserEntity;
+
+/**
+ * User-Admin index view script
+ * 
+ * @package    User
+ */
+
+$this->headTitle('Gebruikers beheren');
+$this->pageTitle('Gebruikers beheren');
+?>
+<table class="table table-striped table-bordered table-hover table-condensed">
+<thead>
+<tr>
+<th>E-mail adres</th>
+<th>Naam</th>
+<th>Rol</th>
+<th width="170">Opties</th>
+</tr>
+</thead>
+<tbody>
+<?php foreach ($this->userList as $user) : /* @var $user UserEntity */ ?>
+<?php
+$urlEdit = $this->url(
+    'user-admin/action', array('action' => 'update', 'id' => $user->getId())
+);
+$urlDelete = $this->url(
+    'user-admin/action', array('action' => 'delete', 'id' => $user->getId())
+);
+?>
+<tr>
+<td><?php echo $user->getEmail(); ?></td>
+<td><?php echo $user->getFirstname(); ?> <?php echo $user->getLastname(); ?></td>
+<td><?php echo $user->getRoleName(); ?></td>
+<td>
+<a href="<?php echo $urlEdit; ?>" class="btn">Wijzigen</a>
+<a href="<?php echo $urlDelete; ?>" class="btn">Verwijderen</a>
+</td>
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+<?php
+echo $this->paginationControl(
+    $this->userList, 'Sliding', 'pagination/sliding', 
+    array('route' => 'user-admin/page')
+);
+?>

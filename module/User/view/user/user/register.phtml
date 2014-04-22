@@ -1,0 +1,31 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 17
+ * 
+ * Das Buch "Zend Framework 2 - Das Praxisbuch"
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
+ * 
+ * @package    User
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
+ */
+
+/**
+ * User register view script
+ * 
+ * @package    User
+ */
+
+$this->headTitle('Registreren');
+$this->pageTitle('Als nieuwe gebruiker registreren');
+
+$actionUrl = $this->url('user', array('action' => 'register'));
+
+echo $this->showForm($this->form, $actionUrl, 'form-horizontal');
+?>
+<hr />
+<h3>Je bent al geregistreerd?</h3>
+<?php $url = $this->url('user', array('action' => 'login'))?>
+<a href="<?php echo $url; ?>" class="btn">Nu inloggen</a>
